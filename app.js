@@ -39,11 +39,11 @@ const findFrequency = function(arr){
 
 // Part 2
 const suspectIds = [];
-const commonLetterIds = [];
+let commonLetters;
 let last = suspectIds.length - 1;
 let twoCount = 0;
 let threeCount = 0;
-let difIndex;
+let difLetterIndex;
 document.getElementById("openFile").addEventListener('change', function() {
   var fr = new FileReader();
   fr.onload = function() {
@@ -90,10 +90,10 @@ document.getElementById("openFile").addEventListener('change', function() {
       letterMatch:
       for(let z = 0; z < length; z++) {
         if(arr1[z] !== arr2[z] && oneBad) {
-          difIndex = arr1.indexOf(arr1[z])
+          difLetterIndex = arr1.indexOf(arr1[z])
           oneBad = false
         } else if(arr1[z] !== arr2[z] && !oneBad) {
-          difIndex = ""
+          difLetterIndex = ""
           test = false;
           break letterMatch
         } else {
@@ -111,13 +111,13 @@ document.getElementById("openFile").addEventListener('change', function() {
     for(let y = 0; y < suspectIds.length; y++) {
       for(let x = y + 1; x < suspectIds.length; x++) {
         if(similarCheck(suspectIds[y], suspectIds[x])) {
-          suspectIds[y].splice(difIndex, 1)
-          commonLetterIds.push(suspectIds[y].join(''))
+          suspectIds[y].splice(difLetterIndex, 1)
+          commonLetters = suspectIds[y].join('')
           break commonLetterCheck
         }
       }
     }
-    console.log(commonLetterIds[0]);
+    console.log(commonLetters);
   }
   fr.readAsText(this.files[0]);
 })
